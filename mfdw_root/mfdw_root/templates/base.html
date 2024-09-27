@@ -1,0 +1,59 @@
+{% load static%}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {% block title %}
+                untitled Document
+            {% endblock title %}
+        </title>                                         
+        <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header id="header">
+                <!--<div id="logo"><img src="{% static 'logo.jpg' %}" alt=""/></div>-->
+                <div id="topbanner"><img src="{% static 'top_banner.png' %}" width="1000" height="200" alt="Top top_banner"/>
+                    <span class="login-info">
+                      {% if user.is_authenticated %}
+                        Hello, {{ user.username }}. <a href="{% url 'logout' %}?next=/">Log out</a>.
+                      {% else %}
+                        Not logged in. <a href="{% url 'login' %}?next=/">Log in</a>.
+                      {% endif %}
+                    </span>
+                </div>
+            </header>
+            <aside id="leftsidebar">
+                <nav id="nav">
+                    <ul>
+                        {% block sidenav %}
+                        <li><a href="#">Menu 1</a></li>
+                        <li><a href="#">Menu 2</a></li>
+                        <li><a href="#">Menu 3</a></li>
+                        {% endblock sidenav %}
+                    </ul>
+                    <ul>
+                        <li><a href="/contact"> Contact Us</a></li>
+                        <li><a href="/quote/">Get a quote</a></li>
+                        <li><a href="/quote/show">Show quote</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            <section id="main">
+                {% block content %}
+                <h1> Welcome!</h1>
+                <p>This is the site template</p>
+                {% endblock content %}
+            </section>
+            <footer id="footer">
+                <p>Copyright &copy; 2022 Meandco web design</p>
+                <ul>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </footer>
+        </div>
+    </body>
+</html>
